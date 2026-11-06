@@ -151,11 +151,50 @@ main {
   line-height: 1.6;
 }
 
+/* ARABIC WELCOME GREETING */
+
+.welcome .welcome-greeting {
+  font-family: "Times New Roman", serif;
+  font-size: clamp(25px, 6vw, 36px);
+  line-height: 1.8;
+  text-align: center;
+  color: var(--plum);
+  direction: rtl;
+  margin: 12px 0;
+}
+
+.welcome-english {
+  text-align: center;
+  line-height: 1.8;
+}
+
 .welcome > p:not(.eyebrow) {
   margin: 9px 0 14px;
   color: #866c78;
   font-size: 15px;
 }
+
+/* QUR'AN WELCOME BUTTON */
+
+.quran-cta {
+  display: block;
+  margin: 22px 0;
+  padding: 15px 16px;
+  background: var(--berry);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 14px;
+  box-shadow: 0 5px 14px rgba(142,49,87,.18);
+}
+
+.quran-cta:active {
+  background: var(--plum);
+  transform: scale(.98);
+}
+
+/* VERSE CARD */
 
 .welcome-verse {
   margin-top: 20px;
@@ -389,7 +428,7 @@ main {
   direction: rtl;
 }
 
-/* READER */
+/* QUR'AN READER */
 
 #quranReader {
   margin-top: 20px;
@@ -455,7 +494,7 @@ main {
   line-height: 1.8;
 }
 
-/* Urdu translation support for future reader update */
+/* URDU TRANSLATION SUPPORT */
 
 .urdu-translation {
   direction: rtl;
