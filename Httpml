@@ -1,0 +1,148 @@
+# iman-whispers-companion
+A peaceful Islamic companion for Qur’an, Hadith, Duas, Azkar, prayer times and Qibla guidance.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#8e3157">
+  <meta name="description" content="Iman Whispers — Faith, Reminders and Peace. Your peaceful Islamic companion.">
+
+  <title>Iman Whispers | Islamic Companion</title>
+
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <header class="top-header">
+    <div class="brand">
+      <span class="brand-icon">☾</span>
+      <div>
+        <h1>Iman Whispers</h1>
+        <p>FAITH • REMINDERS • PEACE</p>
+      </div>
+    </div>
+    <button id="installBtn" hidden>Install App</button>
+  </header>
+
+  <main>
+
+    <section class="welcome">
+      <p class="eyebrow">A QUIET SPACE FOR THE HEART</p>
+      <h2>Assalamu Alaikum</h2>
+      <p>Let your heart remember Allah.</p>
+      <div class="welcome-verse">
+        <p lang="ar" dir="rtl">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</p>
+        <p>Surely, in the remembrance of Allah do hearts find comfort.</p>
+        <small>Qur'an 13:28</small>
+      </div>
+    </section>
+
+    <section class="prayer-section" id="prayer">
+      <h2>Prayer Times</h2>
+      <p>Your daily connection with Allah.</p>
+      <div class="prayer-grid">
+        <div>Fajr <strong>--:--</strong></div>
+        <div>Dhuhr <strong>--:--</strong></div>
+        <div>Asr <strong>--:--</strong></div>
+        <div>Maghrib <strong>--:--</strong></div>
+        <div>Isha <strong>--:--</strong></div>
+      </div>
+      <p class="note">Prayer times will be added in a later step.</p>
+    </section>
+
+    <section class="features" id="explore">
+      <h2>Explore Your Deen</h2>
+      <p>Small steps, stronger faith.</p>
+
+      <div class="feature-grid">
+        <a href="#quran" class="feature-card">
+          <span>📖</span>
+          <h3>Al-Qur'an</h3>
+          <p>Read and reflect</p>
+        </a>
+
+        <a href="#hadith" class="feature-card">
+          <span>🌷</span>
+          <h3>Hadith</h3>
+          <p>Prophetic teachings</p>
+        </a>
+
+        <a href="#duas" class="feature-card">
+          <span>🤲</span>
+          <h3>Daily Duas</h3>
+          <p>Words of remembrance</p>
+        </a>
+
+        <a href="#azkar" class="feature-card">
+          <span>📿</span>
+          <h3>Azkar & Tasbeeh</h3>
+          <p>Remember Allah</p>
+        </a>
+
+        <a href="#qibla" class="feature-card">
+          <span>🧭</span>
+          <h3>Qibla</h3>
+          <p>Find your direction</p>
+        </a>
+
+        <a href="#learning" class="feature-card">
+          <span>✨</span>
+          <h3>Tajweed</h3>
+          <p>Learn step by step</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="content-section" id="quran">
+      <h2>Al-Qur'an</h2>
+      <p>A beautiful journey through the words of Allah.</p>
+    </section>
+
+    <section class="content-section" id="hadith">
+      <h2>Hadith Collection</h2>
+      <p>Explore authentic Prophetic teachings.</p>
+    </section>
+
+    <section class="content-section" id="duas">
+      <h2>Daily Duas</h2>
+      <p>Keep your heart connected through supplication.</p>
+    </section>
+
+    <section class="content-section" id="azkar">
+      <h2>Azkar & Tasbeeh</h2>
+      <p>Your space for daily remembrance.</p>
+    </section>
+
+    <section class="content-section" id="qibla">
+      <h2>Qibla Direction</h2>
+      <p>Qibla compass will be added in a later step.</p>
+    </section>
+
+    <section class="content-section" id="learning">
+      <h2>Islamic Learning</h2>
+      <p>Explore Tajweed and beneficial reminders.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <h3>Iman Whispers</h3>
+    <p>FAITH • REMINDERS • PEACE</p>
+    <p>May Allah fill your heart with peace.</p>
+  </footer>
+
+  <nav class="bottom-nav">
+    <a href="#">Home</a>
+    <a href="#quran">Qur'an</a>
+    <a href="#duas">Duas</a>
+    <a href="#explore">Explore</a>
+  </nav>
+
+  <script src="./script.js"></script>
+</body>
+</html>
+
