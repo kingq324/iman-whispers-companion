@@ -4,6 +4,12 @@
    FAITH • REMINDERS • PEACE
 ========================================== */
 
+/* Arabic font support */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600&display=swap');
+
+
+/* THEME COLORS */
+
 :root {
   --plum: #71334e;
   --berry: #8e3157;
@@ -16,6 +22,9 @@
   --white: #ffffff;
   --shadow: 0 12px 32px rgba(113,51,78,.09);
 }
+
+
+/* GLOBAL RESET */
 
 * {
   box-sizing: border-box;
@@ -39,7 +48,8 @@ body {
   line-height: 1.6;
 }
 
-button, a {
+button,
+a {
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -51,6 +61,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
 
 /* HEADER */
 
@@ -109,7 +120,9 @@ a {
   color: white;
   background: var(--berry);
   font-weight: bold;
+  cursor: pointer;
 }
+
 
 /* MAIN CONTENT */
 
@@ -118,7 +131,8 @@ main {
   margin: 0 auto;
 }
 
-/* WELCOME */
+
+/* WELCOME SECTION */
 
 .welcome {
   margin: 24px 0;
@@ -151,17 +165,29 @@ main {
   line-height: 1.6;
 }
 
-/* ARABIC WELCOME GREETING */
+
+/* ARABIC TEXT */
 
 .welcome .welcome-greeting {
-  font-family: "Times New Roman", serif;
+  font-family: "Amiri", "Noto Naskh Arabic", serif;
   font-size: clamp(25px, 6vw, 36px);
-  line-height: 1.8;
+  line-height: 2;
   text-align: center;
   color: var(--plum);
   direction: rtl;
+  unicode-bidi: isolate;
   margin: 12px 0;
 }
+
+.arabic-verse,
+.surah-arabic {
+  direction: rtl;
+  unicode-bidi: isolate;
+  font-family: "Amiri", "Noto Naskh Arabic", serif;
+}
+
+
+/* ENGLISH GREETING */
 
 .welcome-english {
   text-align: center;
@@ -174,6 +200,7 @@ main {
   font-size: 15px;
 }
 
+
 /* QUR'AN WELCOME BUTTON */
 
 .quran-cta {
@@ -183,7 +210,6 @@ main {
   background: var(--berry);
   color: white;
   text-align: center;
-  text-decoration: none;
   font-weight: bold;
   border-radius: 14px;
   box-shadow: 0 5px 14px rgba(142,49,87,.18);
@@ -194,37 +220,42 @@ main {
   transform: scale(.98);
 }
 
-/* VERSE CARD */
 
-.welcome-verse {
-  margin-top: 20px;
+/* WELCOME VERSE CARD */
+
+.welcome .verse-card {
+  margin: 20px 0 0;
   padding: 19px;
   border: 1px solid rgba(142,49,87,.12);
   border-radius: 20px;
   background: rgba(255,255,255,.65);
+  box-shadow: none;
 }
 
-.welcome-verse p[lang="ar"] {
+.welcome .arabic-verse {
   margin: 0 0 12px;
   color: var(--berry);
-  font-family: "Times New Roman", serif;
-  font-size: 29px;
-  line-height: 2;
+  font-size: clamp(27px, 6vw, 34px);
+  font-weight: 700;
+  line-height: 2.2;
   text-align: center;
 }
 
-.welcome-verse p:not([lang]) {
+.welcome .verse-card p:not(.arabic-verse) {
   margin: 0;
   font-family: Georgia, serif;
   font-size: 15px;
+  text-align: center;
 }
 
-.welcome-verse small {
+.welcome .verse-card small {
   display: block;
   margin-top: 9px;
   color: var(--rose);
   font-weight: bold;
+  text-align: center;
 }
+
 
 /* PRAYER TIMES */
 
@@ -287,7 +318,8 @@ main {
   font-size: 12px !important;
 }
 
-/* EXPLORE CARDS */
+
+/* EXPLORE YOUR DEEN */
 
 .features {
   margin: 30px 0;
@@ -310,7 +342,11 @@ main {
   padding: 18px 14px;
   border: 1px solid #f0dce4;
   border-radius: 20px;
-  background: linear-gradient(155deg,#fff 0%,#fff2f5 100%);
+  background: linear-gradient(
+    155deg,
+    #fff 0%,
+    #fff2f5 100%
+  );
   box-shadow: 0 7px 20px rgba(113,51,78,.06);
   transition: transform .2s ease;
 }
@@ -341,14 +377,34 @@ main {
   font-size: 12px;
 }
 
-/* QUR'AN SECTION */
 
-#quran {
+/* GENERAL CONTENT SECTIONS */
+
+.content-section {
   scroll-margin-top: 90px;
 }
 
+.content-section h3 {
+  color: var(--plum);
+  font-family: Georgia, serif;
+}
+
+.content-section > div:not(#quranReader) {
+  color: var(--ink);
+}
+
+
+/* QUR'AN SECTION */
+
 #quran h2 {
   font-size: 27px;
+}
+
+#quran h2[lang="ar"] {
+  font-family: "Amiri", "Noto Naskh Arabic", serif;
+  text-align: center;
+  direction: rtl;
+  line-height: 2;
 }
 
 #quran h3 {
@@ -366,6 +422,7 @@ main {
   font-size: 14px;
 }
 
+
 /* SURAH LIST */
 
 #quranSurahList {
@@ -382,7 +439,11 @@ main {
   padding: 15px 12px;
   border: 1px solid #f0dce4;
   border-radius: 17px;
-  background: linear-gradient(135deg,#fff 0%,#fff1f5 100%);
+  background: linear-gradient(
+    135deg,
+    #fff 0%,
+    #fff1f5 100%
+  );
   color: var(--ink);
   text-align: left;
   cursor: pointer;
@@ -423,10 +484,9 @@ main {
 
 .surah-arabic {
   color: var(--berry);
-  font-family: "Times New Roman", serif;
   font-size: 20px;
-  direction: rtl;
 }
+
 
 /* QUR'AN READER */
 
@@ -454,6 +514,7 @@ main {
   line-height: 1.8;
 }
 
+
 /* AYAH CARDS */
 
 .verse-card {
@@ -475,14 +536,12 @@ main {
   font-size: 11px;
 }
 
-.arabic-verse {
+#quranVerses .arabic-verse {
   margin: 18px 0;
   color: var(--plum);
-  font-family: "Times New Roman", serif;
   font-size: 28px;
-  line-height: 2.1;
+  line-height: 2.2;
   text-align: right;
-  direction: rtl;
 }
 
 .english-translation {
@@ -494,6 +553,7 @@ main {
   line-height: 1.8;
 }
 
+
 /* URDU TRANSLATION SUPPORT */
 
 .urdu-translation {
@@ -503,6 +563,74 @@ main {
   font-size: 20px;
   line-height: 2.2;
 }
+
+
+/* HADITH, DUAS AND REMINDERS */
+
+#hadithContent,
+#duasContent,
+#reminderContent,
+#learningContent,
+#tasbeehContent {
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--blush);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+
+/* QIBLA COMPASS */
+
+#qiblaCompass {
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--blush);
+  text-align: center;
+}
+
+.compass-circle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 190px;
+  height: 190px;
+  margin: 10px auto 18px;
+  border: 5px solid var(--rose);
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 8px 22px rgba(113,51,78,.12);
+}
+
+.compass-north {
+  position: absolute;
+  top: 10px;
+  color: var(--berry);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.compass-needle {
+  position: absolute;
+  top: 43px;
+  color: var(--berry);
+  font-size: 48px;
+  transform-origin: center 48px;
+}
+
+.compass-center {
+  margin-top: 30px;
+  font-size: 30px;
+}
+
+#qiblaStatus {
+  color: var(--muted);
+  font-size: 13px;
+}
+
 
 /* FOOTER */
 
@@ -526,6 +654,7 @@ footer p {
   font-size: 12px;
   letter-spacing: 1.4px;
 }
+
 
 /* BOTTOM NAVIGATION */
 
@@ -557,9 +686,11 @@ footer p {
   background: var(--soft-rose);
 }
 
+
 /* RESPONSIVE DESIGN */
 
 @media (min-width: 650px) {
+
   body {
     padding-bottom: 0;
   }
@@ -588,9 +719,14 @@ footer p {
   .bottom-nav {
     display: none;
   }
+
 }
 
+
+/* ACCESSIBILITY */
+
 @media (prefers-reduced-motion: reduce) {
+
   html {
     scroll-behavior: auto;
   }
@@ -600,4 +736,5 @@ footer p {
   *::after {
     transition-duration: .01ms !important;
   }
+
 }
