@@ -28,36 +28,11 @@
 
   <main>
 
+    <!-- WELCOME SECTION -->
     <section class="welcome">
       <p class="eyebrow">A QUIET SPACE FOR THE HEART</p>
 
-      <h2 lang="ar" dir="rtl">السلام عليكم ورحمة الله وبركاته</h2>
-
-      <p>
-        Assalamu Alaikum wa Rahmatullahi wa Barakatuh,
-        dear brothers and sisters.
-      </p>
-
-      <p>Let your heart remember Allah.</p>
-
-      <div class="welcome-verse">
-        <p lang="ar" dir="rtl">
-          أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ
-        </p>
-        <p>Surely, in the remembrance of Allah do hearts find comfort.</p>
-        <small>Qur'an 13:28</small>
-      </div>
-    </section>
-      <h2 lang="ar" dir="rtl">السلام عليكم ورحمة الله وبركاته</h2>
-
-      <p>
-        Assalamu Alaikum wa Rahmatullahi wa Barakatuh,
-        dear brothers and sisters.
-      </p>
-
-      <p>Let your heart remember Allah.</p>
-    <section class="prayer-section" id="prayer">
-      <h2>Prayer Times</h2>      <h2 class="welcome-greeting" lang="ar" dir="rtl">
+      <h2 class="welcome-greeting" lang="ar" dir="rtl">
         السلام عليكم ورحمة الله وبركاته
       </h2>
 
@@ -70,36 +45,22 @@
 
       <a href="#quran" class="quran-cta">
         📖 Read the Holy Qur'an — Explore 114 Surahs
-      </a>.welcome-greeting {
-  font-family: serif;
-  font-size: clamp(25px, 6vw, 36px);
-  line-height: 1.8;
-  text-align: center;
-  color: #78334f;
-  direction: rtl;
-}
+      </a>
 
-.welcome-english {
-  text-align: center;
-  line-height: 1.8;
-}
+      <div class="welcome-verse">
+        <p lang="ar" dir="rtl">
+          أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ
+        </p>
+        <p>
+          Surely, in the remembrance of Allah do hearts find comfort.
+        </p>
+        <small>Qur'an 13:28</small>
+      </div>
+    </section>
 
-.quran-cta {
-  display: block;
-  margin-top: 22px;
-  padding: 16px 18px;
-  background: #8e3157;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 14px;
-  box-shadow: 0 5px 14px rgba(142, 49, 87, 0.18);
-}
-
-.quran-cta:hover {
-  background: #702544;
-}
+    <!-- PRAYER TIMES -->
+    <section class="prayer-section" id="prayer">
+      <h2>Prayer Times</h2>
       <p>Your daily connection with Allah.</p>
 
       <div class="prayer-grid">
@@ -110,9 +71,12 @@
         <div>Isha <strong>--:--</strong></div>
       </div>
 
-      <p class="note">Prayer times will be added in a later step.</p>
+      <p class="note">
+        Prayer times will be added in a later step.
+      </p>
     </section>
 
+    <!-- EXPLORE YOUR DEEN -->
     <section class="features" id="explore">
       <h2>Explore Your Deen</h2>
       <p>Small steps, stronger faith.</p>
@@ -139,7 +103,7 @@
 
         <a href="#azkar" class="feature-card">
           <span>📿</span>
-          <h3>Azkar & Tasbeeh</h3>
+          <h3>Azkar &amp; Tasbeeh</h3>
           <p>Remember Allah</p>
         </a>
 
@@ -164,40 +128,50 @@
       <h2 lang="ar" dir="rtl">القرآن الكريم</h2>
       <h3>Al-Qur'an Al-Kareem</h3>
 
-      <p>Read the Holy Qur'an with Arabic text and Sahih International translation.</p>
+      <p>
+        Read the Holy Qur'an with Arabic text and Sahih International translation.
+      </p>
 
       <div id="quran-loading">Loading all 114 Surahs...</div>
 
       <div id="quranSurahList"></div>
 
       <div id="quranReader" hidden>
-        <button id="backToSurahs" type="button">← All Surahs</button>
+        <button id="backToSurahs" type="button">
+          ← All Surahs
+        </button>
+
         <h3 id="surahTitle"></h3>
         <div id="quranVerses"></div>
       </div>
 
     </section>
 
+    <!-- HADITH -->
     <section class="content-section" id="hadith">
       <h2>Hadith Collection</h2>
       <p>Explore authentic Prophetic teachings.</p>
     </section>
 
+    <!-- DUAS -->
     <section class="content-section" id="duas">
       <h2>Daily Duas</h2>
       <p>Keep your heart connected through supplication.</p>
     </section>
 
+    <!-- AZKAR -->
     <section class="content-section" id="azkar">
-      <h2>Azkar & Tasbeeh</h2>
+      <h2>Azkar &amp; Tasbeeh</h2>
       <p>Your space for daily remembrance.</p>
     </section>
 
+    <!-- QIBLA -->
     <section class="content-section" id="qibla">
       <h2>Qibla Direction</h2>
       <p>Qibla compass will be added in a later step.</p>
     </section>
 
+    <!-- ISLAMIC LEARNING -->
     <section class="content-section" id="learning">
       <h2>Islamic Learning</h2>
       <p>Explore Tajweed and beneficial reminders.</p>
@@ -211,6 +185,7 @@
     <p>May Allah fill your heart with peace.</p>
   </footer>
 
+  <!-- BOTTOM NAVIGATION -->
   <nav class="bottom-nav">
     <a href="#">Home</a>
     <a href="#quran">Qur'an</a>
