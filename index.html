@@ -1,29 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <h2>Assalamu Alaikum</h2>
-<p>Let your heart remember Allah.</p>
-  <h2 lang="ar" dir="rtl">السلام عليكم ورحمة الله وبركاته</h2>
-<p>
-  Assalamu Alaikum wa Rahmatullahi wa Barakatuh,
-  dear brothers and sisters.
-</p>
-<p>Let your heart remember Allah.</p>
-  <section class="content-section" id="quran">
-  <h2>القرآن الكريم</h2>
-  <h3>Al-Qur'an Al-Kareem</h3>
-  <p>Read the Holy Qur'an with Arabic text and Sahih International translation.</p>
-
-  <div id="quran-loading">Loading Surahs...</div>
-
-  <div id="quranSurahList"></div>
-
-  <div id="quranReader" hidden>
-    <button id="backToSurahs">← All Surahs</button>
-    <h3 id="surahTitle"></h3>
-    <div id="quranVerses"></div>
-  </div>
-</section>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#8e3157">
@@ -52,7 +30,14 @@
 
     <section class="welcome">
       <p class="eyebrow">A QUIET SPACE FOR THE HEART</p>
-      <h2>Assalamu Alaikum</h2>
+
+      <h2 lang="ar" dir="rtl">السلام عليكم ورحمة الله وبركاته</h2>
+
+      <p>
+        Assalamu Alaikum wa Rahmatullahi wa Barakatuh,
+        dear brothers and sisters.
+      </p>
+
       <p>Let your heart remember Allah.</p>
 
       <div class="welcome-verse">
@@ -124,9 +109,24 @@
       </div>
     </section>
 
+    <!-- QUR'AN READER -->
     <section class="content-section" id="quran">
-      <h2>Al-Qur'an</h2>
-      <p>A beautiful journey through the words of Allah.</p>
+
+      <h2 lang="ar" dir="rtl">القرآن الكريم</h2>
+      <h3>Al-Qur'an Al-Kareem</h3>
+
+      <p>Read the Holy Qur'an with Arabic text and Sahih International translation.</p>
+
+      <div id="quran-loading">Loading all 114 Surahs...</div>
+
+      <div id="quranSurahList"></div>
+
+      <div id="quranReader" hidden>
+        <button id="backToSurahs" type="button">← All Surahs</button>
+        <h3 id="surahTitle"></h3>
+        <div id="quranVerses"></div>
+      </div>
+
     </section>
 
     <section class="content-section" id="hadith">
