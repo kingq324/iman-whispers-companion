@@ -1,0 +1,25 @@
+{
+  "name": "Iman Whispers Companion",
+  "short_name": "Iman Whispers",
+  "description": "A peaceful Islamic companion for Quran, Hadith, Duas, Azkar, prayer times and Qibla guidance.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff5f8",
+  "theme_color": "#8e3157",
+  "icons": [
+    {
+      "src": "./iman-whispers-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./iman-whispers-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
