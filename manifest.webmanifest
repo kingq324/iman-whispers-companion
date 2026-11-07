@@ -1,25 +1,27 @@
+
 {
+  "id": "./",
   "name": "Iman Whispers Companion",
   "short_name": "Iman Whispers",
-  "description": "Your daily Islamic companion for reflection, supplications, and spiritual growth.",
-  "start_url": "./index.html",
+  "description": "Your daily Islamic companion for Quran, prayer times, duas, Hadith, Qibla and spiritual reminders.",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
+  "background_color": "#fff7fa",
+  "theme_color": "#b85c83",
   "icons": [
     {
-      "src": "iman-whispers-icon-192.png",
+      "src": "./iman-whispers-icon-192(3).png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "iman-whispers-icon-512.png",
+      "src": "./iman-whispers-icon-512(3).png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
