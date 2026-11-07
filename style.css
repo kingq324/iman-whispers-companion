@@ -18,6 +18,8 @@
   --radius: 18px;
 }
 
+/* RESET */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -183,18 +185,71 @@ textarea:focus {
   border-bottom: 1px solid var(--border);
 }
 
-.surah {
+/* SURAH CARDS */
+
+.surah,
+.surah-card {
+  display: block;
+  width: 100%;
+  text-align: left;
   background: var(--soft-pink);
+  color: var(--primary-dark);
+  border: 1px solid var(--border);
   border-radius: 14px;
   padding: 15px;
   margin-bottom: 12px;
+}
+
+.surah-card span {
+  display: block;
+}
+
+.surah-card .arabic {
+  text-align: right;
+}
+
+.surah-card small {
+  display: block;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.surah-card:hover {
+  background: #f7dce7;
+}
+
+/* QURAN READER */
+
+.ayah-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  margin: 15px 0;
+  box-shadow: var(--shadow);
+}
+
+.ayah-card .arabic {
+  font-size: 1.9rem;
+  line-height: 2.3;
+  text-align: right;
+}
+
+.ayah-card p:not(.arabic) {
+  margin: 12px 0;
+}
+
+.ayah-card small {
+  color: var(--muted);
 }
 
 /* HADITH AND DUA */
 
 .hadith,
 .dua,
-.reminder {
+.reminder,
+.hadith-card,
+.dua-card {
   background: #fffafd;
   border-left: 4px solid var(--pink);
   padding: 18px;
@@ -215,10 +270,124 @@ textarea:focus {
   padding: 25px;
 }
 
-.counter-number {
+.counter-number,
+#count {
   font-size: 3rem;
   font-weight: 700;
   color: var(--primary);
+}
+
+/* PRAYER TIMES */
+
+#prayerGrid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(110px, 1fr)
+  );
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.prayer-card {
+  background: var(--soft-pink);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 15px 10px;
+  text-align: center;
+}
+
+.prayer-card strong,
+.prayer-card span {
+  display: block;
+}
+
+.prayer-card span {
+  color: var(--primary);
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+/* QIBLA COMPASS */
+
+#compass {
+  width: 210px;
+  height: 210px;
+  margin: 25px auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid var(--primary);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #ffffff 45%,
+    var(--soft-pink) 100%
+  );
+  box-shadow: 0 5px 20px rgba(142, 49, 87, 0.15);
+  overflow: hidden;
+}
+
+/* NORTH LABEL */
+
+#compass::before {
+  content: "N";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--primary-dark);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+/* COMPASS CENTER */
+
+#compass::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--primary-dark);
+  border-radius: 50%;
+  z-index: 3;
+}
+
+/* ROTATING QIBLA NEEDLE */
+
+#compass .compass-arrow {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  z-index: 2;
+  font-size: 42px;
+  line-height: 1;
+  color: var(--primary);
+  transform-origin: 50% 60px;
+  transition: transform 0.25s ease;
+}
+
+/* QIBLA INFORMATION */
+
+#qiblaDegrees {
+  display: block;
+  margin: 12px auto;
+  color: var(--primary-dark);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+#qiblaStatus {
+  text-align: center;
+  color: var(--muted);
+  margin: 12px 0;
+}
+
+#qiblaBtn,
+#sensorBtn {
+  margin: 5px;
 }
 
 /* INSTALL BUTTON */
@@ -234,6 +403,10 @@ textarea:focus {
 
 #pwa-install-btn {
   background: var(--primary);
+}
+
+#installBtn[hidden] {
+  display: none !important;
 }
 
 /* IOS INSTALL MODAL */
@@ -322,6 +495,16 @@ footer {
   button,
   .btn {
     max-width: 100%;
+  }
+
+  #compass {
+    width: 180px;
+    height: 180px;
+  }
+
+  #compass .compass-arrow {
+    top: 32px;
+    transform-origin: 50% 55px;
   }
 }
 
