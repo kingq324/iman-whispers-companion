@@ -1,7 +1,7 @@
 
 /* ==========================================
    IMAN WHISPERS COMPANION
-   Complete Main JavaScript
+   Multilingual Quran Reader
 ========================================== */
 
 "use strict";
@@ -9,9 +9,9 @@
 const API = "https://api.alquran.cloud/v1";
 const ALADHAN_API = "https://api.aladhan.com/v1";
 
-// ==========================================
-// 1. LANGUAGE SYSTEM
-// ==========================================
+/* ==========================================
+   1. APP LANGUAGE
+========================================== */
 
 const translations = {
   en: {
@@ -37,10 +37,7 @@ const translations = {
     morning: "Morning",
     evening: "Evening",
     daily: "Daily",
-    all: "All",
-    loading: "Loading...",
-    noResults: "No Surahs found.",
-    error: "Something went wrong. Please try again."
+    all: "All"
   },
 
   ur: {
@@ -52,7 +49,7 @@ const translations = {
     getPrayer: "نماز کے اوقات حاصل کریں",
     quran: "قرآن مجید",
     search: "سورت تلاش کریں...",
-    hadith: "احادیث کا مجموعہ",
+    hadith: "احادیث",
     duas: "روزانہ کی دعائیں",
     tasbeeh: "ڈیجیٹل تسبیح",
     count: "گنتی",
@@ -66,10 +63,7 @@ const translations = {
     morning: "صبح",
     evening: "شام",
     daily: "روزانہ",
-    all: "تمام",
-    loading: "لوڈ ہو رہا ہے...",
-    noResults: "کوئی سورت نہیں ملی۔",
-    error: "کچھ مسئلہ پیش آیا۔ دوبارہ کوشش کریں۔"
+    all: "تمام"
   },
 
   ar: {
@@ -95,10 +89,7 @@ const translations = {
     morning: "الصباح",
     evening: "المساء",
     daily: "يومي",
-    all: "الكل",
-    loading: "جار التحميل...",
-    noResults: "لم يتم العثور على سور.",
-    error: "حدث خطأ. حاول مرة أخرى."
+    all: "الكل"
   }
 };
 
@@ -132,42 +123,36 @@ function translatePage(language) {
 
   Object.entries(textMap).forEach(([selector, value]) => {
     const element = document.querySelector(selector);
-
-    if (element) {
-      element.textContent = value;
-    }
+    if (element) element.textContent = value;
   });
 
   const search = document.getElementById("surahSearch");
 
-  if (search) {
-    search.placeholder = t.search;
-  }
+  if (search) search.placeholder = t.search;
 
   document.querySelectorAll("[data-filter]").forEach(button => {
-    const filter = button.dataset.filter;
-    button.textContent = t[filter] || filter;
+    button.textContent = t[button.dataset.filter] || button.dataset.filter;
   });
 
   document.documentElement.lang = currentLanguage;
-
   document.documentElement.dir =
     currentLanguage === "ur" || currentLanguage === "ar"
       ? "rtl"
       : "ltr";
 }
 
-const languageSelect = document.getElementById("languageSelect");
+document.getElementById("languageSelect")?.addEventListener(
+  "change",
+  event => translatePage(event.target.value)
+);
 
-languageSelect?.addEventListener("change", event => {
-  translatePage(event.target.value);
-});
+translatePage(
+  document.getElementById("languageSelect")?.value || "en"
+);
 
-translatePage(languageSelect?.value || "en");
-
-// ==========================================
-// 2. DAILY AYAH
-// ==========================================
+/* ==========================================
+   2. DAILY AYAH
+========================================== */
 
 async function loadDailyAyah() {
   const arabic = document.getElementById("ayahArabic");
@@ -181,9 +166,8 @@ async function loadDailyAyah() {
 
   try {
     const dayNumber = Math.floor(
-      (Date.now() -
-        new Date(new Date().getFullYear(), 0, 0)) /
-        86400000
+      (Date.now() - new Date(new Date().getFullYear(), 0, 0)) /
+      86400000
     );
 
     const ayahNumber = ((dayNumber * 17) % 6236) + 1;
@@ -192,17 +176,12 @@ async function loadDailyAyah() {
       `${API}/ayah/${ayahNumber}/editions/quran-uthmani,en.sahih`
     );
 
-    if (!response.ok) {
-      throw new Error("Ayah request failed");
-    }
+    if (!response.ok) throw new Error("Ayah request failed");
 
     const result = await response.json();
 
-    if (
-      result.code !== 200 ||
-      !Array.isArray(result.data) ||
-      result.data.length < 2
-    ) {
+    if (result.code !== 200 || !Array.isArray(result.data) ||
+        result.data.length < 2) {
       throw new Error("Invalid Ayah response");
     }
 
@@ -218,9 +197,7 @@ async function loadDailyAyah() {
 
   } catch (error) {
     console.error("Daily Ayah:", error);
-
-    translation.textContent =
-      "Please check your internet connection and try again.";
+    translation.textContent = "Unable to load the Ayah. Please try again.";
   }
 }
 
@@ -231,9 +208,32 @@ document.getElementById("newAyah")?.addEventListener(
 
 loadDailyAyah();
 
-// ==========================================
-// 3. QURAN AND SURAH READER
-// ==========================================
+/* ==========================================
+   3. QURAN TRANSLATIONS
+========================================== */
+
+const quranEditions = {
+  "en.sahih": {
+    name: "English",
+    direction: "ltr"
+  },
+  "ur.jalandhry": {
+    name: "Urdu",
+    direction: "rtl"
+  },
+  "bn.bengali": {
+    name: "Bengali",
+    direction: "ltr"
+  },
+  "fr.hamidullah": {
+    name: "French",
+    direction: "ltr"
+  },
+  "id.indonesian": {
+    name: "Indonesian",
+    direction: "ltr"
+  }
+};
 
 let allSurahs = [];
 let selectedSurah = null;
@@ -249,26 +249,20 @@ async function loadSurahs() {
   try {
     const response = await fetch(`${API}/surah`);
 
-    if (!response.ok) {
-      throw new Error("Surah request failed");
-    }
+    if (!response.ok) throw new Error("Surah request failed");
 
     const result = await response.json();
 
-    // Always display Surahs in Quran order: 1 to 114.
     allSurahs = (result.data || []).sort(
       (a, b) => a.number - b.number
     );
 
     renderSurahs(allSurahs);
-
     status.textContent = "";
 
   } catch (error) {
-    console.error("Surah loading:", error);
-
-    status.textContent =
-      "Unable to load Surahs. Check your internet.";
+    console.error("Surahs:", error);
+    status.textContent = "Unable to load Surahs. Check your internet.";
   }
 }
 
@@ -281,10 +275,7 @@ function renderSurahs(surahs) {
   list.replaceChildren();
 
   if (surahs.length === 0) {
-    if (status) {
-      status.textContent =
-        translations[currentLanguage].noResults;
-    }
+    if (status) status.textContent = "No Surahs found.";
     return;
   }
 
@@ -292,26 +283,20 @@ function renderSurahs(surahs) {
 
   surahs.forEach(surah => {
     const button = document.createElement("button");
-
     button.type = "button";
     button.className = "surah-card";
 
     const name = document.createElement("span");
-
-    name.textContent =
-      `${surah.number}. ${surah.englishName}`;
+    name.textContent = `${surah.number}. ${surah.englishName}`;
 
     const arabic = document.createElement("span");
-
     arabic.textContent = surah.name;
     arabic.className = "arabic";
     arabic.dir = "rtl";
 
     const details = document.createElement("small");
-
     details.textContent =
-      `${surah.englishNameTranslation} · ` +
-      `${surah.numberOfAyahs} Ayahs`;
+      `${surah.englishNameTranslation} · ${surah.numberOfAyahs} Ayahs`;
 
     button.append(name, arabic, details);
 
@@ -343,20 +328,15 @@ async function openSurah(number) {
   const reader = document.getElementById("reader");
   const list = document.getElementById("surahList");
   const title = document.getElementById("surahTitle");
-  const ayahList = document.getElementById("ayahList");
 
-  if (!reader || !list || !title || !ayahList) return;
+  if (!reader || !list || !title) return;
 
   selectedSurah = number;
 
-  const surah = allSurahs.find(
-    item => item.number === number
-  );
-
+  const surah = allSurahs.find(item => item.number === number);
   if (!surah) return;
 
-  title.textContent =
-    `${surah.name} · ${surah.englishName}`;
+  title.textContent = `${surah.name} · ${surah.englishName}`;
 
   list.hidden = true;
   reader.hidden = false;
@@ -371,14 +351,15 @@ async function openSurah(number) {
 
 async function loadSurahVerses() {
   const ayahList = document.getElementById("ayahList");
-  const translationSelect = document.getElementById("translation");
+  const selector = document.getElementById("translation");
 
   if (!ayahList || !selectedSurah) return;
 
-  const edition =
-    translationSelect?.value === "ur"
-      ? "ur.jalandhry"
-      : "en.sahih";
+  const edition = quranEditions[selector?.value]
+    ? selector.value
+    : "en.sahih";
+
+  const selectedEdition = quranEditions[edition];
 
   ayahList.textContent = "Loading verses...";
 
@@ -387,17 +368,11 @@ async function loadSurahVerses() {
       `${API}/surah/${selectedSurah}/editions/quran-uthmani,${edition}`
     );
 
-    if (!response.ok) {
-      throw new Error("Quran request failed");
-    }
+    if (!response.ok) throw new Error("Quran request failed");
 
     const result = await response.json();
 
-    if (
-      result.code !== 200 ||
-      !result.data ||
-      result.data.length < 2
-    ) {
+    if (result.code !== 200 || !result.data || result.data.length < 2) {
       throw new Error("Invalid Quran response");
     }
 
@@ -408,36 +383,32 @@ async function loadSurahVerses() {
 
     arabicVerses.forEach((ayah, index) => {
       const article = document.createElement("article");
-
       article.className = "ayah-card";
 
       const arabic = document.createElement("p");
-
       arabic.className = "arabic";
+      arabic.lang = "ar";
       arabic.dir = "rtl";
-      arabic.textContent =
-        `${ayah.text} ۞ ${ayah.numberInSurah}`;
+      arabic.textContent = `${ayah.text} ۞ ${ayah.numberInSurah}`;
 
       const translated = document.createElement("p");
-
-      translated.textContent =
-        translatedVerses[index]?.text || "";
+      translated.className = "translation-text";
+      translated.lang = edition.split(".")[0];
+      translated.dir = selectedEdition.direction;
+      translated.textContent = translatedVerses[index]?.text || "";
 
       const reference = document.createElement("small");
-
       reference.textContent =
         `Surah ${selectedSurah}, Ayah ${ayah.numberInSurah}`;
 
       article.append(arabic, translated, reference);
-
       ayahList.appendChild(article);
     });
 
   } catch (error) {
     console.error("Quran verses:", error);
-
     ayahList.textContent =
-      "Unable to load verses. Please try again.";
+      "Unable to load this translation. Please try another language.";
   }
 }
 
@@ -459,9 +430,9 @@ document.getElementById("backSurahs")?.addEventListener(
 
 loadSurahs();
 
-// ==========================================
-// 4. LOCATION SYSTEM
-// ==========================================
+/* ==========================================
+   4. LOCATION
+========================================== */
 
 async function getLocation() {
   return new Promise((resolve, reject) => {
@@ -477,9 +448,7 @@ async function getLocation() {
           longitude: position.coords.longitude
         });
       },
-
       error => reject(error),
-
       {
         enableHighAccuracy: true,
         timeout: 15000,
@@ -489,9 +458,9 @@ async function getLocation() {
   });
 }
 
-// ==========================================
-// 5. PRAYER TIMES
-// ==========================================
+/* ==========================================
+   5. PRAYER TIMES
+========================================== */
 
 async function loadPrayerTimes() {
   const status = document.getElementById("prayerStatus");
@@ -504,7 +473,6 @@ async function loadPrayerTimes() {
 
   try {
     const location = await getLocation();
-
     const today = Math.floor(Date.now() / 1000);
 
     const url =
@@ -515,15 +483,11 @@ async function loadPrayerTimes() {
 
     const response = await fetch(url);
 
-    if (!response.ok) {
-      throw new Error("Prayer API error");
-    }
+    if (!response.ok) throw new Error("Prayer API error");
 
     const result = await response.json();
 
-    if (result.code !== 200) {
-      throw new Error("Prayer data unavailable");
-    }
+    if (result.code !== 200) throw new Error("Prayer data unavailable");
 
     const timings = result.data.timings;
 
@@ -538,7 +502,6 @@ async function loadPrayerTimes() {
 
     prayers.forEach(([name, time]) => {
       const card = document.createElement("div");
-
       card.className = "prayer-card";
 
       const prayerName = document.createElement("strong");
@@ -548,17 +511,15 @@ async function loadPrayerTimes() {
       prayerTime.textContent = time;
 
       card.append(prayerName, prayerTime);
-
       grid.appendChild(card);
     });
 
     status.textContent =
       `Prayer times for ${result.data.date.readable}. ` +
-      "Calculation method: Karachi.";
+      "Please confirm the calculation method with your local mosque.";
 
   } catch (error) {
     console.error("Prayer times:", error);
-
     status.textContent =
       "Unable to get prayer times. Please enable location and try again.";
   }
@@ -569,9 +530,9 @@ document.getElementById("getPrayer")?.addEventListener(
   loadPrayerTimes
 );
 
-// ==========================================
-// 6. QIBLA DIRECTION AND LIVE COMPASS
-// ==========================================
+/* ==========================================
+   6. QIBLA COMPASS
+========================================== */
 
 let qiblaBearing = null;
 let deviceHeading = null;
@@ -579,17 +540,14 @@ let compassListening = false;
 
 function createCompassNeedle() {
   const compass = document.getElementById("compass");
-
   if (!compass) return null;
 
   let arrow = compass.querySelector(".compass-arrow");
 
   if (!arrow) {
     arrow = document.createElement("div");
-
     arrow.className = "compass-arrow";
     arrow.textContent = "▲";
-
     compass.appendChild(arrow);
   }
 
@@ -611,15 +569,11 @@ async function loadQibla() {
       `${ALADHAN_API}/qibla/${location.latitude}/${location.longitude}`
     );
 
-    if (!response.ok) {
-      throw new Error("Qibla API error");
-    }
+    if (!response.ok) throw new Error("Qibla API error");
 
     const result = await response.json();
 
-    if (result.code !== 200) {
-      throw new Error("Qibla direction unavailable");
-    }
+    if (result.code !== 200) throw new Error("Qibla unavailable");
 
     qiblaBearing = Number(result.data.direction);
 
@@ -634,7 +588,6 @@ async function loadQibla() {
 
   } catch (error) {
     console.error("Qibla:", error);
-
     status.textContent =
       "Unable to calculate Qibla. Please allow location access.";
   }
@@ -645,10 +598,9 @@ function updateCompass() {
 
   if (!arrow || qiblaBearing === null) return;
 
-  const rotation =
-    deviceHeading === null
-      ? qiblaBearing
-      : qiblaBearing - deviceHeading;
+  const rotation = deviceHeading === null
+    ? qiblaBearing
+    : qiblaBearing - deviceHeading;
 
   arrow.style.transform =
     `translateX(-50%) rotate(${rotation}deg)`;
@@ -657,19 +609,14 @@ function updateCompass() {
 function handleOrientation(event) {
   let heading = null;
 
-  // iPhone compass heading
   if (typeof event.webkitCompassHeading === "number") {
     heading = event.webkitCompassHeading;
-  }
-
-  // Android absolute orientation
-  else if (event.absolute === true && event.alpha !== null) {
+  } else if (event.absolute === true && event.alpha !== null) {
     heading = (360 - event.alpha + 360) % 360;
   }
 
   if (heading !== null) {
     deviceHeading = heading;
-
     updateCompass();
 
     const status = document.getElementById("qiblaStatus");
@@ -689,7 +636,6 @@ async function enableCompass() {
       throw new Error("Compass sensor not supported");
     }
 
-    // Permission required on some iPhones
     if (
       typeof DeviceOrientationEvent.requestPermission === "function"
     ) {
@@ -702,16 +648,8 @@ async function enableCompass() {
     }
 
     if (!compassListening) {
-      window.addEventListener(
-        "deviceorientation",
-        handleOrientation
-      );
-
-      window.addEventListener(
-        "deviceorientationabsolute",
-        handleOrientation
-      );
-
+      window.addEventListener("deviceorientation", handleOrientation);
+      window.addEventListener("deviceorientationabsolute", handleOrientation);
       compassListening = true;
     }
 
@@ -740,9 +678,9 @@ document.getElementById("sensorBtn")?.addEventListener(
   enableCompass
 );
 
-// ==========================================
-// 7. TASBEEH COUNTER
-// ==========================================
+/* ==========================================
+   7. TASBEEH
+========================================== */
 
 let tasbeehCount = Number(
   localStorage.getItem("imanWhispersTasbeeh") || 0
@@ -779,9 +717,9 @@ document.getElementById("resetBtn")?.addEventListener(
 
 updateTasbeeh();
 
-// ==========================================
-// 8. HADITH COLLECTION
-// ==========================================
+/* ==========================================
+   8. HADITH
+========================================== */
 
 const hadiths = [
   {
@@ -800,14 +738,12 @@ const hadiths = [
 
 function renderHadiths() {
   const container = document.getElementById("hadithList");
-
   if (!container) return;
 
   container.replaceChildren();
 
   hadiths.forEach(hadith => {
     const article = document.createElement("article");
-
     article.className = "hadith-card";
 
     const text = document.createElement("p");
@@ -817,16 +753,15 @@ function renderHadiths() {
     source.textContent = hadith.source;
 
     article.append(text, source);
-
     container.appendChild(article);
   });
 }
 
 renderHadiths();
 
-// ==========================================
-// 9. DAILY DUAS
-// ==========================================
+/* ==========================================
+   9. DAILY DUAS
+========================================== */
 
 const duas = [
   {
@@ -857,23 +792,19 @@ const duas = [
 
 function renderDuas(category = "all") {
   const container = document.getElementById("duaList");
-
   if (!container) return;
 
   container.replaceChildren();
 
-  const filtered =
-    category === "all"
-      ? duas
-      : duas.filter(dua => dua.category === category);
+  const filtered = category === "all"
+    ? duas
+    : duas.filter(dua => dua.category === category);
 
   filtered.forEach(dua => {
     const article = document.createElement("article");
-
     article.className = "dua-card";
 
     const arabic = document.createElement("p");
-
     arabic.className = "arabic";
     arabic.dir = "rtl";
     arabic.textContent = dua.arabic;
@@ -885,7 +816,6 @@ function renderDuas(category = "all") {
     source.textContent = dua.source;
 
     article.append(arabic, meaning, source);
-
     container.appendChild(article);
   });
 }
@@ -898,9 +828,9 @@ document.querySelectorAll("[data-filter]").forEach(button => {
 
 renderDuas();
 
-// ==========================================
-// 10. DAILY REMINDERS
-// ==========================================
+/* ==========================================
+   10. REMINDERS
+========================================== */
 
 const reminders = [
   {
@@ -938,8 +868,7 @@ function showReminder() {
   text.textContent = reminder.text;
   reference.textContent = reminder.source;
 
-  reminderIndex =
-    (reminderIndex + 1) % reminders.length;
+  reminderIndex = (reminderIndex + 1) % reminders.length;
 }
 
 document.getElementById("nextReminder")?.addEventListener(
@@ -949,9 +878,9 @@ document.getElementById("nextReminder")?.addEventListener(
 
 showReminder();
 
-// ==========================================
-// 11. PWA INSTALLATION
-// ==========================================
+/* ==========================================
+   11. PWA INSTALLATION
+========================================== */
 
 let deferredInstallPrompt = null;
 
@@ -959,7 +888,6 @@ const installButton = document.getElementById("installBtn");
 
 window.addEventListener("beforeinstallprompt", event => {
   event.preventDefault();
-
   deferredInstallPrompt = event;
 
   if (installButton) {
@@ -970,7 +898,6 @@ window.addEventListener("beforeinstallprompt", event => {
 installButton?.addEventListener("click", async () => {
   if (deferredInstallPrompt) {
     deferredInstallPrompt.prompt();
-
     await deferredInstallPrompt.userChoice;
 
     deferredInstallPrompt = null;
@@ -985,16 +912,13 @@ installButton?.addEventListener("click", async () => {
 });
 
 window.addEventListener("appinstalled", () => {
-  if (installButton) {
-    installButton.hidden = true;
-  }
-
+  if (installButton) installButton.hidden = true;
   deferredInstallPrompt = null;
 });
 
-// ==========================================
-// 12. SERVICE WORKER REGISTRATION
-// ==========================================
+/* ==========================================
+   12. SERVICE WORKER
+========================================== */
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -1006,10 +930,7 @@ if ("serviceWorker" in navigator) {
         );
       })
       .catch(error => {
-        console.error(
-          "Service Worker registration failed:",
-          error
-        );
+        console.error("Service Worker registration failed:", error);
       });
   });
 }
