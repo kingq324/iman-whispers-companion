@@ -1,56 +1,337 @@
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js')
-      .then((reg) => console.log('Service Worker registered:', reg.scope))
-      .catch((err) => console.error('Service Worker registration failed:', err));
-  });
+
+/* =====================================
+   IMAN WHISPERS COMPANION
+   Elegant Blush Pink Theme
+===================================== */
+
+:root {
+  --primary: #8e3157;
+  --primary-dark: #67213e;
+  --pink: #d98aaa;
+  --soft-pink: #fce8ef;
+  --background: #fff5f8;
+  --surface: #ffffff;
+  --text: #39232e;
+  --muted: #927985;
+  --border: #f1d9e3;
+  --shadow: 0 5px 20px rgba(142, 49, 87, 0.08);
+  --radius: 18px;
 }
 
-let deferredPrompt;
-const installContainer = document.getElementById('pwa-install-container');
-const installBtn = document.getElementById('pwa-install-btn');
-const iosModal = document.getElementById('ios-install-modal');
-const iosCloseBtn = document.getElementById('ios-close-btn');
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+html {
+  scroll-behavior: smooth;
+}
 
-if (!isStandalone) {
-  if (isIOS) {
-    if (installContainer) installContainer.classList.remove('hidden');
-    if (installBtn) {
-      installBtn.addEventListener('click', () => {
-        if (iosModal) iosModal.classList.remove('hidden');
-      });
-    }
-    if (iosCloseBtn) {
-      iosCloseBtn.addEventListener('click', () => {
-        if (iosModal) iosModal.classList.add('hidden');
-      });
-    }
-  } else {
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      if (installContainer) installContainer.classList.remove('hidden');
-    });
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
 
-    if (installBtn) {
-      installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          console.log('User installed the PWA');
-        }
-        deferredPrompt = null;
-        if (installContainer) installContainer.classList.add('hidden');
-      });
-    }
+/* HEADINGS */
+
+h1, h2, h3, h4 {
+  color: var(--primary-dark);
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+/* HEADER */
+
+header {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+
+header .logo,
+.logo {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+/* MAIN CONTAINER */
+
+main,
+.container {
+  width: min(100% - 32px, 1100px);
+  margin: 25px auto;
+}
+
+section {
+  margin-bottom: 30px;
+  scroll-margin-top: 90px;
+}
+
+/* CARDS */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* HERO SECTION */
+
+.hero {
+  background: linear-gradient(135deg, #f8dce7, #fff1f6);
+  border-radius: 24px;
+  padding: 35px 22px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.hero p {
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+/* BUTTONS */
+
+button,
+.btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 11px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover,
+.btn:hover {
+  background: var(--primary-dark);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* INPUTS AND SELECTS */
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: white;
+  color: var(--text);
+  font: inherit;
+  margin: 8px 0;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--pink);
+  border-color: var(--primary);
+}
+
+/* QURAN AND ARABIC TEXT */
+
+.arabic {
+  font-family: 'Amiri', serif;
+  font-size: 1.8rem;
+  line-height: 2.2;
+  direction: rtl;
+  text-align: right;
+  color: var(--primary-dark);
+  margin: 15px 0;
+}
+
+.ayah {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.surah {
+  background: var(--soft-pink);
+  border-radius: 14px;
+  padding: 15px;
+  margin-bottom: 12px;
+}
+
+/* HADITH AND DUA */
+
+.hadith,
+.dua,
+.reminder {
+  background: #fffafd;
+  border-left: 4px solid var(--pink);
+  padding: 18px;
+  border-radius: 12px;
+  margin: 15px 0;
+}
+
+.reference {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 10px;
+}
+
+/* TASBEEH */
+
+.tasbeeh-counter {
+  text-align: center;
+  padding: 25px;
+}
+
+.counter-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* INSTALL BUTTON */
+
+.hidden {
+  display: none !important;
+}
+
+#pwa-install-container {
+  text-align: center;
+  margin: 20px auto;
+}
+
+#pwa-install-btn {
+  background: var(--primary);
+}
+
+/* IOS INSTALL MODAL */
+
+#ios-install-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(35, 15, 25, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+#ios-install-modal.hidden {
+  display: none;
+}
+
+#ios-install-modal > div {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 380px;
+  width: 100%;
+}
+
+/* NAVIGATION */
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+}
+
+nav a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+
+nav a:hover {
+  background: var(--soft-pink);
+}
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+  padding: 25px 15px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+  margin-top: 35px;
+}
+
+/* RESPONSIVE MOBILE DESIGN */
+
+@media (max-width: 600px) {
+  main,
+  .container {
+    width: calc(100% - 24px);
+    margin: 18px auto;
+  }
+
+  .hero {
+    padding: 28px 16px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .arabic {
+    font-size: 1.6rem;
+  }
+
+  nav {
+    gap: 5px;
+  }
+
+  button,
+  .btn {
+    max-width: 100%;
   }
 }
 
-window.addEventListener('appinstalled', () => {
-  if (installContainer) installContainer.classList.add('hidden');
-  deferredPrompt = null;
-});
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
