@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#8e3157"><meta name="description" content="A peaceful Islamic companion.">
+<title>Iman Whispers Companion</title>
+<link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./iman-whispers-icon-192(3).png"><link rel="apple-touch-icon" href="./iman-whispers-icon-192(3).png"><link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="header"><a class="brand" href="#home"><img src="./iman-whispers-icon-192(3).png" alt="Iman Whispers"><span><b>Iman Whispers</b><small>FAITH • REMINDERS • PEACE</small></span></a><div><select id="languageSelect" aria-label="Language"><option value="en">English</option><option value="ur">اردو</option><option value="ar">العربية</option></select> <button id="installBtn" hidden>Install</button></div></header>
+<main id="home">
+<section class="card hero"><p class="eyebrow">A LITTLE SPACE FOR YOUR DEEN</p><h1 lang="ar" dir="rtl">السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ</h1><h2 data-i18n="welcome">Welcome to your daily companion</h2><p>Read, remember, learn and reconnect with Allah — one day at a time.</p><a class="primary" href="#quran">Open Qur'an</a><div class="feature"><div class="split"><b>Ayah of the day</b><button id="newAyah">Another ayah</button></div><p class="arabic" id="ayahArabic" lang="ar" dir="rtl">إِنَّ مَعَ الْعُسْرِ يُسْرًا</p><p id="ayahTranslation">Indeed, with hardship [will be] ease.</p><small id="ayahRef">Surah Ash-Sharh 94:6</small></div></section>
+<section class="card" id="prayer"><div class="split"><h2>Prayer times</h2><button id="getPrayer">Use my location</button></div><p id="prayerStatus" class="muted">Allow location to calculate local prayer times.</p><div id="prayerGrid" class="prayers"></div></section>
+<section class="card" id="quran"><p class="eyebrow">READ • REFLECT • RETURN</p><h2>الْقُرْآنُ الْكَرِيمُ</h2><p>All 114 Surahs with Arabic and translations.</p><input id="surahSearch" placeholder="Search Surah name or number"><p id="quranStatus" class="muted">Loading Surahs…</p><div id="surahList"></div><div id="reader" hidden><button id="backSurahs">← All Surahs</button><h3 id="surahTitle"></h3><label>Translation <select id="translation"><option value="en.sahih">English — Sahih International</option><option value="ur.jalandhry">Urdu — Jalandhri</option></select></label><div id="ayahList"></div></div></section>
+<section class="card" id="hadith"><h2>Hadith reminders</h2><div id="hadithList"></div></section>
+<section class="card" id="duas"><h2>Daily Duas</h2><div class="filters"><button data-filter="all">All</button><button data-filter="morning">Morning</button><button data-filter="evening">Evening</button><button data-filter="daily">Everyday</button></div><div id="duaList"></div></section>
+<section class="card" id="tasbeeh"><h2>Azkar & Tasbeeh</h2><select id="dhikr"><option value="سُبْحَانَ اللَّهِ">SubhanAllah</option><option value="الْحَمْدُ لِلَّهِ">Alhamdulillah</option><option value="اللَّهُ أَكْبَرُ">Allahu Akbar</option><option value="أَسْتَغْفِرُ اللَّهَ">Astaghfirullah</option><option value="لَا إِلَٰهَ إِلَّا اللَّهُ">La ilaha illallah</option></select><p id="dhikrArabic" class="arabic">سُبْحَانَ اللَّهِ</p><div id="count" class="count">0</div><button id="countBtn" class="primary">Count +1</button> <button id="resetBtn">Reset</button><p class="muted">Count is saved on this device.</p></section>
+<section class="card" id="qibla"><h2>Qibla compass</h2><p>Calculate the direction towards the Kaaba using your location. Live compass support depends on your phone.</p><button id="qiblaBtn" class="primary">Find Qibla direction</button><div class="compass" id="compass">N<span>✦</span></div><h3 id="qiblaDegrees">—°</h3><p id="qiblaStatus" class="muted">Direction not calculated.</p><button id="sensorBtn">Enable live compass</button></section>
+<section class="card" id="reminders"><h2>Daily reminder</h2><blockquote id="reminderText">“So remember Me; I will remember you.”</blockquote><small id="reminderRef">Qur'an 2:152</small><button id="nextReminder">Another reminder</button></section>
+<section class="card" id="learning"><h2>Islamic learning</h2><p>Explore Qur'an reading, authentic narrations and supplications with references. Ask a qualified scholar for personal religious rulings.</p></section>
+</main>
+<footer>Iman Whispers • FAITH • REMINDERS • PEACE</footer>
+<nav><a href="#home">Home</a><a href="#quran">Qur'an</a><a href="#duas">Duas</a><a href="#tasbeeh">Tasbeeh</a><a href="#qibla">Qibla</a></nav>
+<script src="./script.js" defer></script>
+</body></html>
