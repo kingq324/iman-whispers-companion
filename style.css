@@ -124,6 +124,8 @@ p {
   margin-bottom: 8px;
 }
 
+/* Hero */
+
 .hero {
   padding: 35px 24px;
   border-radius: 26px;
@@ -162,6 +164,8 @@ button.primary-btn:hover {
   transform: translateY(-1px);
 }
 
+/* General cards */
+
 .card,
 #dailyAyah,
 #prayerTimes,
@@ -170,13 +174,83 @@ button.primary-btn:hover {
 #duas,
 #tasbeeh,
 #qibla,
-#reminders {
+#reminders,
+#hijriCalendar,
+#namesAllah,
+#prophet,
+#seerah,
+#salawat,
+#sunnah {
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 20px;
   box-shadow: var(--shadow);
 }
+
+/* Icons */
+
+svg {
+  vertical-align: middle;
+}
+
+.section-icon {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 7px;
+  color: var(--pink);
+  stroke: currentColor;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* Navigation */
+
+.main-nav {
+  display: flex;
+  gap: 9px;
+  padding: 12px 5%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 20;
+}
+
+.main-nav a,
+.main-nav button {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 9px 14px;
+  background: var(--pink-soft);
+  color: var(--pink-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.main-nav a:hover,
+.main-nav button:hover {
+  background: var(--pink-light);
+  border-color: var(--rose);
+}
+
+.main-nav svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* Quran Arabic */
 
 #ayahArabic,
 .ayah-arabic,
@@ -204,6 +278,8 @@ button.primary-btn:hover {
   font-size: 0.85rem;
   margin-top: 12px;
 }
+
+/* Buttons */
 
 #newAyah,
 #nextReminder,
@@ -233,9 +309,13 @@ button.primary-btn:hover {
   background: var(--rose);
 }
 
+/* Prayer times */
+
 #prayerStatus,
 #quranStatus,
-#qiblaStatus {
+#qiblaStatus,
+#namesStatus,
+#hijriStatus {
   color: var(--muted);
   font-size: 0.9rem;
   margin: 10px 0;
@@ -267,7 +347,10 @@ button.primary-btn:hover {
   margin: 5px 0 0;
 }
 
-#surahSearch {
+/* Quran */
+
+#surahSearch,
+#namesSearch {
   width: 100%;
   border: 1px solid var(--border);
   background: var(--white);
@@ -375,6 +458,8 @@ button.primary-btn:hover {
   margin-top: 12px;
 }
 
+/* Hadith and duas */
+
 #hadithList,
 #duaList {
   display: grid;
@@ -427,6 +512,8 @@ button[data-filter].active {
   border-color: var(--pink);
 }
 
+/* Tasbeeh */
+
 #count {
   font-size: 3rem;
   font-weight: 800;
@@ -448,6 +535,8 @@ button[data-filter].active {
   display: block;
   margin: 12px auto 0;
 }
+
+/* Qibla compass */
 
 #qibla {
   text-align: center;
@@ -511,12 +600,183 @@ button[data-filter].active {
   z-index: 3;
 }
 
+/* Reminders */
+
 #reminderText {
   font-family: 'Amiri', 'Noto Naskh Arabic', serif;
   font-size: 1.4rem;
   line-height: 1.9;
   color: var(--pink-dark);
 }
+
+/* Hijri calendar */
+
+#hijriCalendar {
+  text-align: center;
+}
+
+#hijriDate {
+  color: var(--pink-dark);
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  margin: 12px 0;
+}
+
+#hijriDateEnglish {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+#hijriEvents {
+  display: grid;
+  gap: 10px;
+  margin-top: 15px;
+  text-align: left;
+}
+
+.hijri-event {
+  padding: 13px 15px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--pink-soft);
+}
+
+/* 99 Names of Allah */
+
+#namesList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.name-card {
+  padding: 17px 12px;
+  background: linear-gradient(145deg, #fff4f8, #ffffff);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-align: center;
+  transition: 0.2s ease;
+}
+
+.name-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--rose);
+  box-shadow: var(--shadow);
+}
+
+.name-card .arabic {
+  font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+  font-size: 2rem;
+  line-height: 1.8;
+  color: var(--pink-dark);
+  direction: rtl;
+}
+
+.name-card h3 {
+  color: var(--pink-dark);
+  font-size: 0.95rem;
+  margin: 5px 0;
+}
+
+.name-card p {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.name-card .name-number {
+  display: inline-block;
+  background: var(--pink-light);
+  color: var(--pink-dark);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  margin-bottom: 8px;
+}
+
+/* Prophet Muhammad ﷺ */
+
+#prophet {
+  text-align: center;
+  background: linear-gradient(145deg, #fff4f8, #ffffff);
+}
+
+.prophet-title {
+  color: var(--pink-dark);
+  font-family: 'Amiri', serif;
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+.prophet-subtitle {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+}
+
+/* Seerah */
+
+#seerahList {
+  display: grid;
+  gap: 12px;
+}
+
+.seerah-card {
+  padding: 16px;
+  background: var(--pink-soft);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  border-left: 4px solid var(--pink);
+}
+
+.seerah-card h3 {
+  color: var(--pink-dark);
+  font-size: 1rem;
+  margin-bottom: 7px;
+}
+
+.seerah-card p {
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+
+/* Salawat */
+
+#salawat {
+  text-align: center;
+}
+
+#salawat .arabic {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  color: var(--pink-dark);
+}
+
+/* Sunnah */
+
+#sunnahList {
+  display: grid;
+  gap: 12px;
+}
+
+.sunnah-card {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: var(--pink-soft);
+}
+
+.sunnah-card h3 {
+  color: var(--pink-dark);
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.sunnah-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+/* Footer */
 
 footer,
 .footer {
@@ -526,6 +786,8 @@ footer,
   font-size: 0.85rem;
   border-top: 1px solid var(--border);
 }
+
+/* RTL language support */
 
 [dir="rtl"] body {
   direction: rtl;
@@ -540,12 +802,26 @@ footer,
   flex-direction: row;
 }
 
+[dir="rtl"] .seerah-card {
+  border-left: 1px solid var(--border);
+  border-right: 4px solid var(--pink);
+}
+
+[dir="rtl"] #hijriEvents {
+  text-align: right;
+}
+
+/* Accessibility */
+
 button:focus-visible,
 input:focus-visible,
-select:focus-visible {
+select:focus-visible,
+a:focus-visible {
   outline: 3px solid rgba(217, 79, 131, 0.35);
   outline-offset: 2px;
 }
+
+/* Mobile responsive */
 
 @media (max-width: 600px) {
   header,
@@ -592,12 +868,31 @@ select:focus-visible {
   #duas,
   #tasbeeh,
   #qibla,
-  #reminders {
+  #reminders,
+  #hijriCalendar,
+  #namesAllah,
+  #prophet,
+  #seerah,
+  #salawat,
+  #sunnah {
     padding: 16px;
   }
 
   #surahList {
     grid-template-columns: 1fr;
+  }
+
+  #namesList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .name-card {
+    padding: 13px 8px;
+  }
+
+  .name-card .arabic {
+    font-size: 1.7rem;
   }
 
   #prayerGrid {
@@ -607,6 +902,16 @@ select:focus-visible {
   #compass {
     width: 200px;
     height: 200px;
+  }
+
+  .main-nav {
+    padding: 10px 12px;
+  }
+
+  .main-nav a,
+  .main-nav button {
+    padding: 8px 11px;
+    font-size: 0.8rem;
   }
 }
 
