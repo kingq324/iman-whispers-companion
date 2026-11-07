@@ -1,7 +1,8 @@
 
 /* ==========================================
    IMAN WHISPERS COMPANION
-   Multilingual Quran Reader
+   Islamic Companion App
+   Quran • Prayer • Qibla • Dhikr • Seerah
 ========================================== */
 
 "use strict";
@@ -22,7 +23,6 @@ const translations = {
     prayer: "Prayer Times",
     getPrayer: "Get Prayer Times",
     quran: "The Holy Quran",
-    search: "Search Surah...",
     hadith: "Hadith Collection",
     duas: "Daily Duas",
     tasbeeh: "Digital Tasbeeh",
@@ -34,10 +34,13 @@ const translations = {
     reminder: "A Gentle Reminder",
     another: "Another Reminder",
     back: "← Back to Surahs",
-    morning: "Morning",
-    evening: "Evening",
-    daily: "Daily",
-    all: "All"
+    hijri: "Islamic Hijri Calendar",
+    names: "99 Names of Allah",
+    prophet: "Prophet Muhammad ﷺ",
+    seerah: "Seerah of Prophet Muhammad ﷺ",
+    salawat: "Durood and Salawat",
+    sunnah: "Daily Sunnah",
+    search: "Search Surah..."
   },
 
   ur: {
@@ -48,7 +51,6 @@ const translations = {
     prayer: "نماز کے اوقات",
     getPrayer: "نماز کے اوقات حاصل کریں",
     quran: "قرآن مجید",
-    search: "سورت تلاش کریں...",
     hadith: "احادیث",
     duas: "روزانہ کی دعائیں",
     tasbeeh: "ڈیجیٹل تسبیح",
@@ -60,10 +62,13 @@ const translations = {
     reminder: "ایک خوبصورت نصیحت",
     another: "ایک اور نصیحت",
     back: "← سورتوں پر واپس جائیں",
-    morning: "صبح",
-    evening: "شام",
-    daily: "روزانہ",
-    all: "تمام"
+    hijri: "اسلامی ہجری کیلنڈر",
+    names: "اللہ کے 99 نام",
+    prophet: "حضرت محمد ﷺ",
+    seerah: "سیرت النبی ﷺ",
+    salawat: "درود و سلام",
+    sunnah: "روزانہ کی سنتیں",
+    search: "سورت تلاش کریں..."
   },
 
   ar: {
@@ -74,7 +79,6 @@ const translations = {
     prayer: "مواقيت الصلاة",
     getPrayer: "احصل على مواقيت الصلاة",
     quran: "القرآن الكريم",
-    search: "ابحث عن سورة...",
     hadith: "مجموعة الأحاديث",
     duas: "أدعية يومية",
     tasbeeh: "المسبحة الرقمية",
@@ -86,53 +90,80 @@ const translations = {
     reminder: "تذكير لطيف",
     another: "تذكير آخر",
     back: "← العودة إلى السور",
-    morning: "الصباح",
-    evening: "المساء",
-    daily: "يومي",
-    all: "الكل"
+    hijri: "التقويم الهجري",
+    names: "أسماء الله الحسنى",
+    prophet: "النبي محمد ﷺ",
+    seerah: "السيرة النبوية",
+    salawat: "الصلاة والسلام",
+    sunnah: "السنن اليومية",
+    search: "ابحث عن سورة..."
   }
 };
 
 let currentLanguage = "en";
+
+function setHeading(selector, value) {
+  const heading = document.querySelector(selector);
+  if (!heading) return;
+
+  const icon = heading.querySelector("svg");
+
+  heading.replaceChildren();
+
+  if (icon) {
+    heading.appendChild(icon);
+    heading.appendChild(document.createTextNode(" "));
+  }
+
+  heading.appendChild(document.createTextNode(value));
+}
 
 function translatePage(language) {
   currentLanguage = translations[language] ? language : "en";
 
   const t = translations[currentLanguage];
 
-  const textMap = {
+  const headings = {
     ".hero h1": t.welcome,
-    ".hero .primary-btn": t.explore,
     "#dailyAyah h2": t.ayah,
-    "#newAyah": t.refresh,
     "#prayerTimes h2": t.prayer,
-    "#getPrayer": t.getPrayer,
     "#quran h2": t.quran,
     "#hadith h2": t.hadith,
     "#duas h2": t.duas,
     "#tasbeeh h2": t.tasbeeh,
+    "#qibla h2": t.qibla,
+    "#reminders h2": t.reminder,
+    "#hijriCalendar h2": t.hijri,
+    "#namesAllah h2": t.names,
+    "#prophet h2": t.prophet,
+    "#seerah h2": t.seerah,
+    "#salawat h2": t.salawat,
+    "#sunnah h2": t.sunnah
+  };
+
+  Object.entries(headings).forEach(([selector, value]) => {
+    setHeading(selector, value);
+  });
+
+  const buttons = {
+    ".hero .primary-btn": t.explore,
+    "#newAyah": t.refresh,
+    "#getPrayer": t.getPrayer,
     "#countBtn": t.count,
     "#resetBtn": t.reset,
-    "#qibla h2": t.qibla,
     "#qiblaBtn": t.findQibla,
     "#sensorBtn": t.sensor,
-    "#reminders h2": t.reminder,
     "#nextReminder": t.another,
     "#backSurahs": t.back
   };
 
-  Object.entries(textMap).forEach(([selector, value]) => {
+  Object.entries(buttons).forEach(([selector, value]) => {
     const element = document.querySelector(selector);
     if (element) element.textContent = value;
   });
 
   const search = document.getElementById("surahSearch");
-
   if (search) search.placeholder = t.search;
-
-  document.querySelectorAll("[data-filter]").forEach(button => {
-    button.textContent = t[button.dataset.filter] || button.dataset.filter;
-  });
 
   document.documentElement.lang = currentLanguage;
   document.documentElement.dir =
@@ -213,26 +244,13 @@ loadDailyAyah();
 ========================================== */
 
 const quranEditions = {
-  "en.sahih": {
-    name: "English",
-    direction: "ltr"
-  },
-  "ur.jalandhry": {
-    name: "Urdu",
-    direction: "rtl"
-  },
-  "bn.bengali": {
-    name: "Bengali",
-    direction: "ltr"
-  },
-  "fr.hamidullah": {
-    name: "French",
-    direction: "ltr"
-  },
-  "id.indonesian": {
-    name: "Indonesian",
-    direction: "ltr"
-  }
+  "en.sahih": { direction: "ltr" },
+  "ur.jalandhry": { direction: "rtl" },
+  "bn.bengali": { direction: "ltr" },
+  "fr.hamidullah": { direction: "ltr" },
+  "id.indonesian": { direction: "ltr" },
+  "tr.diyanet": { direction: "ltr" },
+  "es.cortes": { direction: "ltr" }
 };
 
 let allSurahs = [];
@@ -475,6 +493,7 @@ async function loadPrayerTimes() {
     const location = await getLocation();
     const today = Math.floor(Date.now() / 1000);
 
+    // Method 1 = University of Islamic Sciences, Karachi.
     const url =
       `${ALADHAN_API}/timings/${today}` +
       `?latitude=${location.latitude}` +
@@ -516,7 +535,7 @@ async function loadPrayerTimes() {
 
     status.textContent =
       `Prayer times for ${result.data.date.readable}. ` +
-      "Please confirm the calculation method with your local mosque.";
+      "Confirm calculation settings with your local mosque.";
 
   } catch (error) {
     console.error("Prayer times:", error);
@@ -679,7 +698,7 @@ document.getElementById("sensorBtn")?.addEventListener(
 );
 
 /* ==========================================
-   7. TASBEEH
+   7. DIGITAL TASBEEH
 ========================================== */
 
 let tasbeehCount = Number(
@@ -718,7 +737,7 @@ document.getElementById("resetBtn")?.addEventListener(
 updateTasbeeh();
 
 /* ==========================================
-   8. HADITH
+   8. HADITH COLLECTION
 ========================================== */
 
 const hadiths = [
@@ -829,7 +848,283 @@ document.querySelectorAll("[data-filter]").forEach(button => {
 renderDuas();
 
 /* ==========================================
-   10. REMINDERS
+   10. ISLAMIC HIJRI CALENDAR
+========================================== */
+
+async function loadHijriCalendar() {
+  const arabic = document.getElementById("hijriDate");
+  const english = document.getElementById("hijriDateEnglish");
+  const status = document.getElementById("hijriStatus");
+  const events = document.getElementById("hijriEvents");
+
+  if (!arabic || !english) return;
+
+  status.textContent = "Loading Islamic date...";
+
+  try {
+    const today = Math.floor(Date.now() / 1000);
+
+    const response = await fetch(
+      `${ALADHAN_API}/timings/${today}?latitude=24.8607&longitude=67.0011&method=1`
+    );
+
+    if (!response.ok) throw new Error("Hijri calendar request failed");
+
+    const result = await response.json();
+
+    if (result.code !== 200) throw new Error("Hijri date unavailable");
+
+    const hijri = result.data.date.hijri;
+
+    arabic.textContent = hijri.date;
+    english.textContent =
+      `${hijri.day} ${hijri.month.en} ${hijri.year} AH`;
+
+    status.textContent =
+      "Islamic date provided by the AlAdhan calendar service. " +
+      "Local moon sighting may differ.";
+
+    if (events) {
+      events.replaceChildren();
+
+      const month = document.createElement("p");
+      month.textContent = `Current Hijri month: ${hijri.month.en}`;
+
+      const year = document.createElement("p");
+      year.textContent = `Hijri year: ${hijri.year} AH`;
+
+      events.append(month, year);
+    }
+
+  } catch (error) {
+    console.error("Hijri calendar:", error);
+    status.textContent =
+      "Unable to load the Hijri date. Please try again later.";
+  }
+}
+
+loadHijriCalendar();
+
+/* ==========================================
+   11. 99 NAMES OF ALLAH
+========================================== */
+
+let allAllahNames = [];
+
+async function loadAllahNames() {
+  const container = document.getElementById("namesList");
+  const status = document.getElementById("namesStatus");
+
+  if (!container || !status) return;
+
+  status.textContent = "Loading the 99 Names of Allah...";
+
+  try {
+    const response = await fetch(
+      `${ALADHAN_API}/asmaAlHusna`
+    );
+
+    if (!response.ok) throw new Error("Names request failed");
+
+    const result = await response.json();
+
+    if (result.code !== 200 || !Array.isArray(result.data)) {
+      throw new Error("Names data unavailable");
+    }
+
+    allAllahNames = result.data;
+
+    renderAllahNames(allAllahNames);
+    status.textContent = `${allAllahNames.length} beautiful names loaded.`;
+
+  } catch (error) {
+    console.error("Names of Allah:", error);
+    status.textContent =
+      "Unable to load the Names of Allah. Please check your internet connection.";
+  }
+}
+
+function renderAllahNames(names) {
+  const container = document.getElementById("namesList");
+  const status = document.getElementById("namesStatus");
+
+  if (!container) return;
+
+  container.replaceChildren();
+
+  if (!names.length) {
+    if (status) status.textContent = "No names found.";
+    return;
+  }
+
+  names.forEach((item, index) => {
+    const card = document.createElement("article");
+    card.className = "name-card";
+
+    const number = document.createElement("small");
+    number.textContent = item.number || index + 1;
+
+    const arabic = document.createElement("p");
+    arabic.className = "arabic";
+    arabic.lang = "ar";
+    arabic.dir = "rtl";
+    arabic.textContent = item.name || "";
+
+    const transliteration = document.createElement("h3");
+    transliteration.textContent = item.transliteration || "";
+
+    const meaning = document.createElement("p");
+    meaning.textContent =
+      item.en?.meaning ||
+      item.meaning ||
+      "Meaning unavailable";
+
+    card.append(number, arabic, transliteration, meaning);
+    container.appendChild(card);
+  });
+}
+
+document.getElementById("namesSearch")?.addEventListener(
+  "input",
+  event => {
+    const query = event.target.value.trim().toLowerCase();
+
+    const filtered = allAllahNames.filter(item => {
+      const arabic = item.name || "";
+      const transliteration = item.transliteration || "";
+      const meaning = item.en?.meaning || item.meaning || "";
+
+      return (
+        arabic.includes(query) ||
+        transliteration.toLowerCase().includes(query) ||
+        meaning.toLowerCase().includes(query)
+      );
+    });
+
+    renderAllahNames(filtered);
+  }
+);
+
+loadAllahNames();
+
+/* ==========================================
+   12. SEERAH OF PROPHET MUHAMMAD ﷺ
+========================================== */
+
+const seerahItems = [
+  {
+    title: "The Birth of the Prophet ﷺ",
+    description: "Prophet Muhammad ﷺ was born in Makkah in the Year of the Elephant.",
+    source: "Classical Seerah accounts"
+  },
+  {
+    title: "The First Revelation",
+    description: "The first revelation came to Prophet Muhammad ﷺ in the Cave of Hira through Angel Jibril.",
+    source: "Sahih al-Bukhari 3"
+  },
+  {
+    title: "The Hijrah",
+    description: "The Prophet ﷺ migrated from Makkah to Madinah with his companion Abu Bakr رضي الله عنه.",
+    source: "Seerah accounts; Quran 9:40"
+  },
+  {
+    title: "The Conquest of Makkah",
+    description: "The Prophet ﷺ entered Makkah and granted forgiveness to many of its people.",
+    source: "Classical Seerah accounts"
+  },
+  {
+    title: "The Farewell Pilgrimage",
+    description: "The Prophet ﷺ delivered his Farewell Sermon during his final pilgrimage.",
+    source: "Sahih al-Bukhari 1739; Sahih Muslim 1218"
+  }
+];
+
+function renderSeerah() {
+  const container = document.getElementById("seerahList");
+  if (!container) return;
+
+  container.replaceChildren();
+
+  seerahItems.forEach(item => {
+    const article = document.createElement("article");
+    article.className = "seerah-card";
+
+    const title = document.createElement("h3");
+    title.textContent = item.title;
+
+    const description = document.createElement("p");
+    description.textContent = item.description;
+
+    const source = document.createElement("small");
+    source.textContent = item.source;
+
+    article.append(title, description, source);
+    container.appendChild(article);
+  });
+}
+
+renderSeerah();
+
+/* ==========================================
+   13. DAILY SUNNAH
+========================================== */
+
+const sunnahItems = [
+  {
+    title: "Begin with Bismillah",
+    description: "Remember Allah and begin appropriate daily activities in His name.",
+    source: "Sahih al-Bukhari 5376; Sahih Muslim 2022"
+  },
+  {
+    title: "Use the right hand when eating",
+    description: "Eat with your right hand and eat from what is near you.",
+    source: "Sahih al-Bukhari 5376; Sahih Muslim 2022"
+  },
+  {
+    title: "Smile at others",
+    description: "A smile to your brother is an act of charity.",
+    source: "Jami at-Tirmidhi 1956"
+  },
+  {
+    title: "Spread the greeting of peace",
+    description: "Greet others with Assalamu Alaikum.",
+    source: "Sahih Muslim 54"
+  },
+  {
+    title: "Remember Allah often",
+    description: "Keep your tongue moist with the remembrance of Allah.",
+    source: "Jami at-Tirmidhi 3375"
+  }
+];
+
+function renderSunnah() {
+  const container = document.getElementById("sunnahList");
+  if (!container) return;
+
+  container.replaceChildren();
+
+  sunnahItems.forEach(item => {
+    const article = document.createElement("article");
+    article.className = "sunnah-card";
+
+    const title = document.createElement("h3");
+    title.textContent = item.title;
+
+    const description = document.createElement("p");
+    description.textContent = item.description;
+
+    const source = document.createElement("small");
+    source.textContent = item.source;
+
+    article.append(title, description, source);
+    container.appendChild(article);
+  });
+}
+
+renderSunnah();
+
+/* ==========================================
+   14. REMINDERS
 ========================================== */
 
 const reminders = [
@@ -879,7 +1174,7 @@ document.getElementById("nextReminder")?.addEventListener(
 showReminder();
 
 /* ==========================================
-   11. PWA INSTALLATION
+   15. PWA INSTALLATION
 ========================================== */
 
 let deferredInstallPrompt = null;
@@ -917,7 +1212,7 @@ window.addEventListener("appinstalled", () => {
 });
 
 /* ==========================================
-   12. SERVICE WORKER
+   16. SERVICE WORKER
 ========================================== */
 
 if ("serviceWorker" in navigator) {
