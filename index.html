@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#b85c83">
+  <meta name="description" content="Iman Whispers Companion — Quran, duas, hadith, prayer times, Qibla and daily Islamic reminders.">
+
+  <title>Iman Whispers Companion</title>
+
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./iman-whispers-icon-192(3).png">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./script.js" defer></script>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="#home" class="brand">
+      <img
+        src="./iman-whispers-icon-192(3).png"
+        alt="Iman Whispers logo"
+        width="48"
+        height="48"
+      >
+      <span>
+        <strong>Iman Whispers</strong>
+        <small>FAITH • REMINDERS • PEACE</small>
+      </span>
+    </a>
+
+    <div class="header-actions">
+      <select id="languageSelect" aria-label="Choose language">
+        <option value="en">English</option>
+        <option value="ur">اردو</option>
+        <option value="ar">العربية</option>
+      </select>
+
+      <button id="installBtn" type="button" hidden>
+        Install App
+      </button>
+    </div>
+  </header>
+
+  <main id="home">
+
+    <!-- HERO -->
+    <section class="hero">
+      <p class="eyebrow">WELCOME TO YOUR FAITH JOURNEY</p>
+      <h1>A Heart Close to Allah</h1>
+      <p>
+        Find peace in remembrance, guidance in the Quran,
+        and comfort in the words of Allah.
+      </p>
+      <a href="#quran" class="primary-btn">Explore Quran</a>
+    </section>
+
+    <!-- DAILY AYAH -->
+    <section class="feature" id="dailyAyah">
+      <h2>Ayah of the Day</h2>
+
+      <p id="ayahArabic" class="arabic" lang="ar" dir="rtl">
+        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+      </p>
+
+      <p id="ayahTranslation">
+        In the name of Allah, the Most Compassionate, the Most Merciful.
+      </p>
+
+      <p id="ayahRef" class="reference">
+        Surah Al-Fatihah · 1:1
+      </p>
+
+      <button id="newAyah" type="button">
+        Refresh Ayah
+      </button>
+    </section>
+
+    <!-- PRAYER TIMES -->
+    <section class="feature prayers" id="prayerTimes">
+      <h2>Prayer Times</h2>
+      <p id="prayerStatus" role="status">
+        Allow location access to find your local prayer times.
+      </p>
+
+      <button id="getPrayer" type="button">
+        Get Prayer Times
+      </button>
+
+      <div id="prayerGrid" class="prayer-grid">
+        <!-- Prayer times will be added by JavaScript -->
+      </div>
+    </section>
+
+    <!-- QURAN -->
+    <section class="feature" id="quran">
+      <h2>The Holy Quran</h2>
+      <p>Read and reflect upon the words of Allah.</p>
+
+      <input
+        id="surahSearch"
+        type="search"
+        placeholder="Search Surah..."
+        aria-label="Search Surah"
+      >
+
+      <p id="quranStatus" role="status">
+        Loading Surahs...
+      </p>
+
+      <div id="surahList">
+        <!-- Surah list will be added by JavaScript -->
+      </div>
+
+      <div id="reader" hidden>
+        <button id="backSurahs" type="button">
+          ← Back to Surahs
+        </button>
+
+        <h3 id="surahTitle"></h3>
+
+        <label for="translation">Translation:</label>
+        <select id="translation">
+          <option value="en">English — Sahih International</option>
+          <option value="ur">Urdu — Jalandhri</option>
+        </select>
+
+        <div id="ayahList">
+          <!-- Quran verses will be added by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- HADITH -->
+    <section class="feature" id="hadith">
+      <h2>Hadith Collection</h2>
+      <p>Beautiful teachings from the Sunnah.</p>
+
+      <div id="hadithList">
+        <!-- Verified Hadith content will be added here -->
+      </div>
+    </section>
+
+    <!-- DUAS -->
+    <section class="feature" id="duas">
+      <h2>Daily Duas</h2>
+      <p>Remember Allah throughout your day.</p>
+
+      <div class="dua-filters">
+        <button type="button" data-filter="all">All</button>
+        <button type="button" data-filter="morning">Morning</button>
+        <button type="button" data-filter="evening">Evening</button>
+        <button type="button" data-filter="daily">Daily</button>
+      </div>
+
+      <div id="duaList">
+        <!-- Duas with references will be added here -->
+      </div>
+    </section>
+
+    <!-- TASBEEH -->
+    <section class="feature" id="tasbeeh">
+      <h2>Digital Tasbeeh</h2>
+      <p>Keep your heart connected with Allah.</p>
+
+      <p id="dhikr" class="dhikr">
+        SubhanAllah
+      </p>
+
+      <p id="dhikrArabic" class="arabic" lang="ar" dir="rtl">
+        سُبْحَانَ اللَّهِ
+      </p>
+
+      <div id="count" class="count" aria-live="polite">
+        0
+      </div>
+
+      <button id="countBtn" type="button">
+        Count
+      </button>
+
+      <button id="resetBtn" type="button">
+        Reset
+      </button>
+    </section>
+
+    <!-- QIBLA -->
+    <section class="feature" id="qibla">
+      <h2>Qibla Direction</h2>
+      <p>Find the direction of the Holy Kaaba.</p>
+
+      <div id="compass" class="compass" aria-label="Qibla compass">
+        <span>N</span>
+        <span class="compass-arrow">↑</span>
+      </div>
+
+      <p id="qiblaDegrees">--°</p>
+
+      <p id="qiblaStatus" role="status">
+        Enable location to calculate Qibla direction.
+      </p>
+
+      <button id="qiblaBtn" type="button">
+        Find Qibla
+      </button>
+
+      <button id="sensorBtn" type="button">
+        Enable Compass Sensor
+      </button>
+    </section>
+
+    <!-- REMINDERS -->
+    <section class="feature" id="reminders">
+      <h2>A Gentle Reminder</h2>
+
+      <p id="reminderText">
+        Indeed, in the remembrance of Allah do hearts find rest.
+      </p>
+
+      <p id="reminderRef">
+        Quran · Surah Ar-Ra'd 13:28
+      </p>
+
+      <button id="nextReminder" type="button">
+        Another Reminder
+      </button>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Made with love for the sake of Allah.</p>
+    <p>Iman Whispers · Faith • Reminders • Peace</p>
+    <a href="#home">Back to Top ↑</a>
+  </footer>
+
+</body>
+</html>
