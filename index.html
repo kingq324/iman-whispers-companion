@@ -13,6 +13,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./iman-whispers-icon-192(3).png">
   <link rel="stylesheet" href="./style.css">
+
   <script src="./script.js" defer></script>
 </head>
 
@@ -34,7 +35,7 @@
     </a>
 
     <div class="header-actions">
-      <select id="languageSelect" aria-label="Choose language">
+      <select id="languageSelect" aria-label="Choose app language">
         <option value="en">English</option>
         <option value="ur">اردو</option>
         <option value="ar">العربية</option>
@@ -83,6 +84,7 @@
     <!-- PRAYER TIMES -->
     <section class="feature prayers" id="prayerTimes">
       <h2>Prayer Times</h2>
+
       <p id="prayerStatus" role="status">
         Allow location access to find your local prayer times.
       </p>
@@ -92,13 +94,13 @@
       </button>
 
       <div id="prayerGrid" class="prayer-grid">
-        <!-- Prayer times will be added by JavaScript -->
       </div>
     </section>
 
     <!-- QURAN -->
     <section class="feature" id="quran">
       <h2>The Holy Quran</h2>
+
       <p>Read and reflect upon the words of Allah.</p>
 
       <input
@@ -113,41 +115,83 @@
       </p>
 
       <div id="surahList">
-        <!-- Surah list will be added by JavaScript -->
       </div>
 
+      <!-- QURAN READER -->
       <div id="reader" hidden>
+
         <button id="backSurahs" type="button">
           ← Back to Surahs
         </button>
 
         <h3 id="surahTitle"></h3>
 
-        <label for="translation">Translation:</label>
-        <select id="translation">
-          <option value="en">English — Sahih International</option>
-          <option value="ur">Urdu — Jalandhri</option>
-        </select>
+        <!-- TRANSLATION LANGUAGE SELECTOR -->
+        <div class="translation-control">
+
+          <label for="translation">
+            Choose your translation language:
+          </label>
+
+          <select id="translation" aria-label="Quran translation language">
+
+            <option value="en.sahih">
+              English — Sahih International
+            </option>
+
+            <option value="ur.jalandhry">
+              Urdu — Fateh Muhammad Jalandhry
+            </option>
+
+            <option value="bn.bengali">
+              Bengali — Muhiuddin Khan
+            </option>
+
+            <option value="fr.hamidullah">
+              French — Muhammad Hamidullah
+            </option>
+
+            <option value="id.indonesian">
+              Indonesian
+            </option>
+
+            <option value="tr.diyanet">
+              Turkish — Diyanet
+            </option>
+
+            <option value="es.cortes">
+              Spanish — Julio Cortes
+            </option>
+
+          </select>
+
+          <p class="translation-note">
+            The original Arabic Quran will always remain visible
+            alongside your selected translation.
+          </p>
+
+        </div>
 
         <div id="ayahList">
-          <!-- Quran verses will be added by JavaScript -->
         </div>
+
       </div>
     </section>
 
     <!-- HADITH -->
     <section class="feature" id="hadith">
       <h2>Hadith Collection</h2>
+
       <p>Beautiful teachings from the Sunnah.</p>
 
       <div id="hadithList">
-        <!-- Verified Hadith content will be added here -->
       </div>
     </section>
 
     <!-- DUAS -->
     <section class="feature" id="duas">
       <h2>Daily Duas</h2>
+
       <p>Remember Allah throughout your day.</p>
 
       <div class="dua-filters">
@@ -158,13 +202,13 @@
       </div>
 
       <div id="duaList">
-        <!-- Duas with references will be added here -->
       </div>
     </section>
 
     <!-- TASBEEH -->
     <section class="feature" id="tasbeeh">
       <h2>Digital Tasbeeh</h2>
+
       <p>Keep your heart connected with Allah.</p>
 
       <p id="dhikr" class="dhikr">
@@ -191,6 +235,7 @@
     <!-- QIBLA -->
     <section class="feature" id="qibla">
       <h2>Qibla Direction</h2>
+
       <p>Find the direction of the Holy Kaaba.</p>
 
       <div id="compass" class="compass" aria-label="Qibla compass">
